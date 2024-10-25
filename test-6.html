@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foundation Form</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css">
+    <style>
+        form{
+            border: 2px solid cyan;
+            margin: 100px;
+            font: bold;
+            border-radius: 20px;
+        }
+        .container{
+            padding: 50px;
+            background-color:lightcyan;   
+        }
+
+        h1{
+            text-align: center;
+            color: darkcyan;
+        }
+    </style>
+</head>
+<body>
+    <form>
+        <div class="container">
+            <h1>Registration Form</h1>
+
+            <label for="fname">First Name:</label>
+            <input type="text" id="fname" name="fname" placeholder="Enter Your First Name" required>
+
+            <label for="lname">Last Name:</label>
+            <input type="text" id="lname" name="lname" placeholder="Enter Your Last Name" required>
+
+            <label for="mail">Email:</label>
+            <input type="email" id="mail" name="mail" placeholder="Enter Your Email ID" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" minlength="5" maxlength="10" required>
+
+            <label for="cpassword">Confirm Password:</label>
+            <input type="password" id="cpassword" name="cpassword" minlength="5" maxlength="10" required>
+
+            <button class="button success" style="border-radius: 10px;">Register</button>
+            <button class="button success" style="border-radius: 10px;">Login</button>
+        </div>
+    </form>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js"></script>
+    <script>
+        $foundation.document();
+    </script>
+    
+</body>
+</html>
