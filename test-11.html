@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>String Array</title>
+    <script>
+        function manipulateArray() {
+            const arrayOfStrings = ["bmw", "audi", "tesla","honda"];
+            arrayOfStrings.push("VOLVO");
+            const result = arrayOfStrings.map(element => element.toUpperCase());
+            document.getElementById("output").textContent = result.join(", ");
+        }
+    </script>
+</head>
+<body>
+    <h1 style="color: blue;">String Array</h1>
+    <button onclick="manipulateArray()" style="background-color: darkgray; border-radius: 5px;">Convert to Uppercase</button>
+    <p id="output"></p>
+</body>
+</html>
