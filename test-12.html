@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Functional Component</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <style>
+        body{
+            background-color: rosybrown;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        const UserDetails = (props) => {
+            return (
+                <div>
+                    <h1><b>User Details</b></h1>
+                    <p><b>Name:</b> {props.name}</p>
+                    <p><b>Lname:</b> {props.lname}</p>
+                    <p><b>Age:</b> {props.age}</p>
+                    <p><b>Email:</b> {props.email}</p>
+                    <p><b>Mobile No:</b> {props.mobileNo}</p>
+                    <p><b>City:</b> {props.city}</p>
+                </div>
+            );
+        };
+
+        const App = () => {
+            return (
+                <div>
+                    <UserDetails 
+                        name="Sweety"
+                        lname= "S"
+                        age={23} 
+                        email="gnanamanisweety@gmail.com" 
+                        mobileNo="9123456789" 
+                        city="Coimbatore" 
+                    />
+                </div>
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById("root"));
+    </script>
+</body>
+</html>
