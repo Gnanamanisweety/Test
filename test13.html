@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Class Component</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+    <style>
+        body{
+            text-align: center;
+            border: 2px solid black;
+            padding: 5%;
+            background-color: gainsboro;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        class UserDetails extends React.Component {
+            constructor(props) {
+                super(props);
+
+                this.state = {
+                    name: "Sweety",
+                    lname: "S",
+                    age: 23,
+                };
+            }
+
+            changeDetails = () => {
+                this.setState({
+                    name: "Andrea",
+                    lname: "D",
+                    age: 13,
+                });
+            };
+
+            render() {
+                return (
+                    <div>
+                        <h1>User Details</h1>
+                        <p>Name: {this.state.name}</p>
+                        <p>Last Name: {this.state.lname}</p>
+                        <p>Age: {this.state.age}</p>
+                        <button onClick={this.changeDetails}>Click here...</button>
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(<UserDetails />, document.getElementById("root"));
+    </script>
+</body>
+</html>
