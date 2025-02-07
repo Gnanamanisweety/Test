@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login and Logout Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body
+     { 
+        font-family: Arial, sans-serif; 
+        text-align: center; 
+        margin-top: 20px;
+     }
+    .container 
+    { 
+        max-width: 300px; 
+        margin: auto; 
+        padding: 20px; 
+        border: 1px solid #ddd; 
+        border-radius: 10px; 
+    }
+    input, button 
+    { 
+        width: 100%; 
+        padding: 10px; 
+        margin: 5px 0; 
+    }
+    button
+     { 
+        background-color: blue; 
+        color: white; 
+        border: none; 
+        cursor: pointer;
+     }
+  </style>
+</head>
+<body>
+
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/redux/4.1.0/redux.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-redux/7.2.5/react-redux.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-router-dom/5.2.0/react-router-dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js"></script>
+
+  <script type="text/babel">
+
+    const { BrowserRouter, Route, Switch, Redirect, useHistory } = ReactRouterDOM;
+    const { createStore } = Redux;
+    const { Provider, useDispatch, useSelector } = ReactRedux;
+
+    const initialState = {
+      isAuthenticated: localStorage.getItem("auth") === "true"
+    };
+
+    // Reducer
+    const authReducer = (state = initialState, action) => {
+      switch (action.type) {
+        case "LOGIN":
+          localStorage.setItem("auth", "true");
+          return { ...state, isAuthenticated: true };
+        case "LOGOUT":
+          localStorage.removeItem("auth");
+          return { ...state, isAuthenticated: false };
+        default:
+          return state;
+      }
+    };
+
+    // Create Store
+    const store = createStore(authReducer);
+
+    // Login Component
+    function Login() {
+      const dispatch = useDispatch();
+      const history = useHistory();
+
+      const handleLogin = () => {
+        dispatch({ type: "LOGIN" });
+        history.push("/dashboard");
+      };
+
+      return (
+        <div className="container">
+          <h2>Login</h2>
+          <input type="text" placeholder="Username" />
+          <input type="password" placeholder="Password" />
+          <button onClick={handleLogin}>Login</button>
+        </div>
+      );
+    }
+
+    // Dashboard Component
+    function Dashboard() {
+      const dispatch = useDispatch();
+      const history = useHistory();
+
+      const handleLogout = () => {
+        dispatch({ type: "LOGOUT" });
+        history.push("/login");
+      };
+
+      return (
+        <div className="container">
+          <h2>Welcome to Main Page</h2>
+          <button onClick={handleLogout}>Logout</button>
+        </div>
+      );
+    }
+
+    // Protected Route
+    function PrivateRoute({ component: Component, ...rest }) {
+      const isAuthenticated = useSelector((state) => state.isAuthenticated);
+      return (
+        <Route
+          {...rest}
+          render={(props) =>
+            isAuthenticated ? <Component {...props} /> : <Redirect to="/login" />
+          }
+        />
+      );
+    }
+
+    // App Component
+    function App() {
+      return (
+        <BrowserRouter>
+          <Switch>
+            <Route path="/login" component={Login} />
+            <PrivateRoute path="/dashboard" component={Dashboard} />
+            <Redirect from="/" to="/login" />
+          </Switch>
+        </BrowserRouter>
+      );
+    }
+
+    // Render the App
+    ReactDOM.render(
+      <Provider store={store}>
+        <App />
+      </Provider>,
+      document.getElementById("root")
+    );
+  </script>
+
+</body>
+</html>
